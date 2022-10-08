@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +24,7 @@ public class gameFragment extends Fragment {
     private View guessOkBtn;
     private View guessCancelBtn;
     private CharacterAdapter guessAdapter;
+    private CharacterAdapter answersAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +61,14 @@ public class gameFragment extends Fragment {
         guessOkBtn = view.findViewById(R.id.guess_ok_btn);
         guessCancelBtn = view.findViewById(R.id.guess_cancel_btn);
 
+        guessCancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                guessRvView.setVisibility(View.GONE);
+                guessAdapter.clear();
+            }
+        });
+
         characterAdapter.setGuessOnClickedListener(new OnClickedItemListener<CharactersListClass>() {
             @Override
             public void onClickedStep(CharactersListClass item, int position) {
@@ -71,5 +81,36 @@ public class gameFragment extends Fragment {
         guessAdapter = new CharacterAdapter();
         guessRvMain.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, true));
         guessRvMain.setAdapter(guessAdapter);
+
+        RecyclerView answersRv = view.findViewById(R.id.answers_rv);
+
+        int maxLength = 0;
+        for (int i = 0; i < item.getWords().size(); i++) {
+            int currentLength = item.getWords().get(i).length();
+            if (currentLength > maxLength) {
+                maxLength = currentLength;
+            }
+        }
+
+        List<CharactersListClass> answersList = new ArrayList<>();
+        for (int i = 0; i < item.getWords().size(); i++) {
+            for (int j = 0; j < maxLength; j++) {
+                CharactersListClass answersItem = new CharactersListClass();
+                int itemLength = item.getWords().get(i).length();
+                if (j < itemLength) {
+                    answersItem.setVisible(false);
+                    answersItem.setCharacter(item.getWords().get(i).charAt(j));
+                    answersItem.setNull(false);
+                }else{
+                    answersItem.setNull(true);
+                }
+                answersList.add(answersItem);
+            }
+        }
+
+        answersAdapter = new CharacterAdapter(answersList);
+        answersRv.setLayoutManager(new GridLayoutManager(getContext(), maxLength, RecyclerView.VERTICAL, false));
+        answersRv.setAdapter(answersAdapter);
+
     }
 }

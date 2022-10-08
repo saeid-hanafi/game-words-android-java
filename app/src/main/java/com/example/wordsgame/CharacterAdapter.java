@@ -37,6 +37,11 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
         notifyItemInserted(listClasses.size() - 1);
     }
 
+    public void clear() {
+        listClasses.clear();
+        notifyDataSetChanged();
+    }
+
     @Override
     public void onBindViewHolder(@NonNull CharacterViewHolder holder, int position) {
         holder.bindCharacters(listClasses.get(position));
@@ -64,7 +69,14 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
                 charTv.setText(charactersListClasses.getCharacter().toString());
                 charTv.setVisibility(View.VISIBLE);
             }else{
-                charTv.setVisibility(View.INVISIBLE);
+                charTv.setVisibility(View.GONE);
+            }
+
+            if (charactersListClasses.isNull()) {
+                charTv.setBackground(null);
+            }else{
+                charTv.setVisibility(View.VISIBLE);
+                charTv.setBackgroundResource(R.drawable.item_back);
             }
 
             itemView.setOnClickListener(new View.OnClickListener() {
