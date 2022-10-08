@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.wordsgame.SquareItems xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="50dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="5sp">
 
     <TextView
         android:id="@+id/character_tv"
@@ -12,6 +13,6 @@
         android:gravity="center"
         android:textColor="@color/white"
         tools:text="1"
-        android:textSize="40sp"/>
+        android:textSize="25sp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.example.wordsgame.SquareItems>
