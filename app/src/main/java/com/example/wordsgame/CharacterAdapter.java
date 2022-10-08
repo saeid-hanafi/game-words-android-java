@@ -42,6 +42,24 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
         notifyDataSetChanged();
     }
 
+    public String getWord() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < listClasses.size(); i++) {
+            stringBuilder.append(listClasses.get(i).getCharacter());
+        }
+        return stringBuilder.toString();
+    }
+
+    public void setString(String word) {
+        for (int i = 0; i < listClasses.size(); i++) {
+            String tag = listClasses.get(i).getTag();
+            if (tag != null && tag.equalsIgnoreCase(word)) {
+                listClasses.get(i).setVisible(true);
+                notifyItemChanged(i);
+            }
+        }
+    }
+
     @Override
     public void onBindViewHolder(@NonNull CharacterViewHolder holder, int position) {
         holder.bindCharacters(listClasses.get(position));

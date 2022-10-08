@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -69,6 +70,23 @@ public class gameFragment extends Fragment {
             }
         });
 
+        guessOkBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String answer = guessAdapter.getWord();
+                for (int i = 0; i < item.getWords().size(); i++) {
+                    String word = item.getWords().get(i);
+                    if (word.equalsIgnoreCase(answer)) {
+                        answersAdapter.setString(answer);
+                        guessCancelBtn.performClick();
+                        return;
+                    }
+                }
+                guessCancelBtn.performClick();
+                Toast.makeText(getContext(), "صحیح نیست!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         characterAdapter.setGuessOnClickedListener(new OnClickedItemListener<CharactersListClass>() {
             @Override
             public void onClickedStep(CharactersListClass item, int position) {
@@ -79,7 +97,7 @@ public class gameFragment extends Fragment {
 
         RecyclerView guessRvMain = view.findViewById(R.id.guess_rv);
         guessAdapter = new CharacterAdapter();
-        guessRvMain.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, true));
+        guessRvMain.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         guessRvMain.setAdapter(guessAdapter);
 
         RecyclerView answersRv = view.findViewById(R.id.answers_rv);
@@ -101,6 +119,7 @@ public class gameFragment extends Fragment {
                     answersItem.setVisible(false);
                     answersItem.setCharacter(item.getWords().get(i).charAt(j));
                     answersItem.setNull(false);
+                    answersItem.setTag(item.getWords().get(i));
                 }else{
                     answersItem.setNull(true);
                 }
@@ -111,6 +130,5 @@ public class gameFragment extends Fragment {
         answersAdapter = new CharacterAdapter(answersList);
         answersRv.setLayoutManager(new GridLayoutManager(getContext(), maxLength, RecyclerView.VERTICAL, false));
         answersRv.setAdapter(answersAdapter);
-
     }
 }

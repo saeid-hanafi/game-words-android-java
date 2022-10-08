@@ -4,6 +4,7 @@ public class CharactersListClass {
     private Character character;
     private boolean isVisible;
     private boolean isNull;
+    private String tag;
 
     public boolean isVisible() {
         return isVisible;
@@ -27,5 +28,13 @@ public class CharactersListClass {
 
     public void setNull(boolean aNull) {
         isNull = aNull;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }
