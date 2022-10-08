@@ -10,4 +10,54 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"/>
 
+    <LinearLayout
+        android:id="@+id/guess_layout_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        android:layout_above="@id/characters_rv"
+        android:layout_centerHorizontal="true"
+        android:gravity="center">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/guess_rv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/guess_btn_layout_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/guess_ok_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="تایید"
+                android:textColor="@color/white"
+                android:background="@color/purple_500"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:layout_margin="5sp"
+                android:elevation="20dp"/>
+
+            <Button
+                android:id="@+id/guess_cancel_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="انصراف"
+                android:textColor="@color/white"
+                android:background="@color/teal_700"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:layout_margin="5sp"
+                android:elevation="20sp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 </RelativeLayout>

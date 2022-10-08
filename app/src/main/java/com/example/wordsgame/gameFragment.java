@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +19,11 @@ import java.util.List;
 public class gameFragment extends Fragment {
     private Level item;
     private static final String TAG = "gameFragment";
+    private View guessRvView;
+    private View guessOkBtn;
+    private View guessCancelBtn;
+    private CharacterAdapter guessAdapter;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +52,24 @@ public class gameFragment extends Fragment {
             charactersListClasses.add(charactersListClassItem);
         }
 
-        charactersRv.setAdapter(new CharacterAdapter(charactersListClasses));
+        CharacterAdapter characterAdapter = new CharacterAdapter(charactersListClasses);
+        charactersRv.setAdapter(characterAdapter);
+
+        guessRvView = view.findViewById(R.id.guess_layout_main);
+        guessOkBtn = view.findViewById(R.id.guess_ok_btn);
+        guessCancelBtn = view.findViewById(R.id.guess_cancel_btn);
+
+        characterAdapter.setGuessOnClickedListener(new OnClickedItemListener<CharactersListClass>() {
+            @Override
+            public void onClickedStep(CharactersListClass item, int position) {
+                guessRvView.setVisibility(View.VISIBLE);
+                guessAdapter.add(item);
+            }
+        });
+
+        RecyclerView guessRvMain = view.findViewById(R.id.guess_rv);
+        guessAdapter = new CharacterAdapter();
+        guessRvMain.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, true));
+        guessRvMain.setAdapter(guessAdapter);
     }
 }

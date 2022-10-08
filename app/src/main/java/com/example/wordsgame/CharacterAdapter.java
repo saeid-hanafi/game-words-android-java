@@ -14,6 +14,11 @@ import java.util.List;
 public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder> {
 
     private List<CharactersListClass> listClasses = new ArrayList<>();
+    private OnClickedItemListener<CharactersListClass> guessOnClickedListener;
+
+    public CharacterAdapter(){
+
+    }
 
     public CharacterAdapter(List<CharactersListClass> list) {
         listClasses = list;
@@ -27,6 +32,11 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
         ));
     }
 
+    public void add(CharactersListClass charactersListClass) {
+        listClasses.add(charactersListClass);
+        notifyItemInserted(listClasses.size() - 1);
+    }
+
     @Override
     public void onBindViewHolder(@NonNull CharacterViewHolder holder, int position) {
         holder.bindCharacters(listClasses.get(position));
@@ -35,6 +45,10 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
     @Override
     public int getItemCount() {
         return listClasses.size();
+    }
+
+    public void setGuessOnClickedListener(OnClickedItemListener<CharactersListClass> guessOnClickedListener) {
+        this.guessOnClickedListener = guessOnClickedListener;
     }
 
     public class CharacterViewHolder extends RecyclerView.ViewHolder {
@@ -52,6 +66,13 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
             }else{
                 charTv.setVisibility(View.INVISIBLE);
             }
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    guessOnClickedListener.onClickedStep(charactersListClasses, getAdapterPosition());
+                }
+            });
         }
     }
 }
