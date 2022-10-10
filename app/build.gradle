@@ -3,6 +3,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('/home/shanafi/AndroidStudioProjects/wordsgame/words_game.jks')
+            storePassword KEYSTORE_PASS
+            keyAlias KEYSTORE_KEY
+            keyPassword KEY_PASS
+        }
+    }
     namespace 'com.example.wordsgame'
     compileSdk 32
 
@@ -20,6 +28,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
