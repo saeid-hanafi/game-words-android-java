@@ -1,4 +1,3 @@
-gradle.properties
 *.iml
 .gradle
 /local.properties
@@ -14,6 +13,7 @@ gradle.properties
 .externalNativeBuild
 .cxx
 local.properties
+gradle.properties
 # Created by https://www.toptal.com/developers/gitignore/api/java
 # Edit at https://www.toptal.com/developers/gitignore?templates=java
 
